@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task Prioritization</title>
+  <style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+  align-items: center;
+  background-color: #7fffd4;
+  text-align:center;
+  margin: 40px;
+  padding : 3px;
+  border : 1px solid black;
+}
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Task Prioritization</h1>
+  <br>
+  <h2>Welcome to the code-view,here we will configure the priorities and urgency of the task !!! </h2>
+
+  
+  <h2>Add a Task</h2>
+  <input type="text" id="taskInput" placeholder="Enter task description">
+  <br>
+  <select id="priorityInput">
+    <option value="low">Low</option>
+    <option value="medium">Medium</option>
+    <option value="high">High</option>
+  </select>
+  <button onclick="addTask()">Add Task</button><br>
+  <h2>Task List</h2>
+  <br>
+  <ul id="taskList"></ul>
+
+</body>
+<script>
+let tasks = [];
+
+// Function to add a task
+function addTask() {
+  const taskInput = document.getElementById("taskInput");
+  const priorityInput = document.getElementById("priorityInput");
+  
+  const task = taskInput.value;
+  const priority = priorityInput.value;
+  
+  // Create a task object
+  const newTask = {
+    task: task,
+    priority: priority
+  };
+  
+  // Add the task to the array
+  tasks.push(newTask);
+  
+  // Clear the input fields
+  taskInput.value = "";
+  priorityInput.value = "low";
+  
+  // Refresh the task list
+  refreshTaskList();
+}
+
+// Function to refresh the task list
+function refreshTaskList() {
+  const taskList = document.getElementById("taskList");
+  
+  // Clear the task list
+  taskList.innerHTML = "";
+  
+  // Sort tasks based on priority (high to low)
+  tasks.sort((a, b) => {
+    const priorityOrder = { "low": 0, "medium": 1, "high": 2 };
+    return priorityOrder[b.priority] - priorityOrder[a.priority];
+  });
+  
+  // Add tasks to the task list
+  tasks.forEach(task => {
+    const listItem = document.createElement("li");
+    listItem.innerHTML = `${task.task} - Priority: ${task.priority}`;
+    taskList.appendChild(listItem);
+  });
+}
+console.log('High priority task is card number and CVV');
+</script>
+
+</html>
